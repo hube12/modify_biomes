@@ -39,14 +39,15 @@ jobs:
         with:
           name: Artifacts
           path: build/libs/
-      - name: Create release
-        uses: Roang-zero1/github-create-release-action@master
+      - name: Release
+        uses: docker://antonyurchenko/git-release:latest
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Create GitHub release
-        uses: Roang-zero1/github-upload-release-artifacts-action@master
-        with:
-            args:
-                - build/libs/
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRAFT_RELEASE: "false"
+          PRE_RELEASE: "false"
+          CHANGELOG_FILE: "CHANGELOG.md"
+          ALLOW_EMPTY_CHANGELOG: "false"
+          ALLOW_TAG_PREFIX: "true"
+      with:
+        args: |
+            build/libs/*.jar
