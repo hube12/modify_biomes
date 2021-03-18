@@ -34,6 +34,10 @@ dependencies {
 	implementation('com.github.KaptainWutax:SEED:master-SNAPSHOT')
 }
 
+minecraft {
+	accessWidener =  file("src/main/resources/modifybiomes.accesswidener")
+}
+
 processResources {
 	inputs.property "version", project.version
 

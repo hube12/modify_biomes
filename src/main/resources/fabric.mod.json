@@ -23,7 +23,7 @@
     ]
   },
   "mixins": [
-    "modifybiomes.json"
+    "modifybiomes.mixins.json"
   ],
 
   "depends": {

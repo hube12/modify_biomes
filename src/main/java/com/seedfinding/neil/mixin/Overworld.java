@@ -14,6 +14,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import static com.seedfinding.neil.ModifyBiomes.MC_VERSION;
+
 @Mixin(VanillaLayeredBiomeSource.class)
 public class Overworld {
     @Shadow
@@ -23,15 +25,13 @@ public class Overworld {
 
     @Inject(method = "<init>(JZZLnet/minecraft/util/registry/Registry;)V", at = @At("RETURN"))
     public void VanillaLayeredBiomeSource(long seed, boolean legacyBiomeInitLayer, boolean largeBiomes, Registry<Biome> biomeRegistry, CallbackInfo ci) {
-        biomeSource = BiomeSource.of(Dimension.OVERWORLD, MCVersion.v1_16, seed);
+        biomeSource = BiomeSource.of(Dimension.OVERWORLD,MC_VERSION, seed);
     }
 
     @Inject(method = "getBiomeForNoiseGen(III)Lnet/minecraft/world/biome/Biome;", at = @At("HEAD"), cancellable = true)
     public void getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ, CallbackInfoReturnable<Biome> cir) {
         cir.cancel(); // remove the old method
         kaptainwutax.biomeutils.Biome biome = biomeSource.getBiomeForNoiseGen(biomeX, biomeY, biomeZ);
-        int id = biome.getId();
-        Biome biomeMC = this.biomeRegistry.get(id);
-        cir.setReturnValue(biomeMC);
+        cir.setReturnValue(this.biomeRegistry.get(biome.getId()));
     }
 }
