@@ -23,7 +23,7 @@ public class ExampleMixin {
 
     @Inject(method = "<init>(JZZLnet/minecraft/util/registry/Registry;)V", at = @At("RETURN"))
     public void VanillaLayeredBiomeSource(long seed, boolean legacyBiomeInitLayer, boolean largeBiomes, Registry<Biome> biomeRegistry, CallbackInfo ci) {
-        biomeSource = BiomeSource.of(Dimension.OVERWORLD, MCVersion.v1_14, 42);
+        biomeSource = BiomeSource.of(Dimension.OVERWORLD, MCVersion.v1_16, seed);
     }
 
     @Inject(method = "getBiomeForNoiseGen(III)Lnet/minecraft/world/biome/Biome;", at = @At("HEAD"), cancellable = true)
