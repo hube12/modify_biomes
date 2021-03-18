@@ -6,7 +6,8 @@
   "client": [
     "End",
     "Nether",
-    "Overworld"
+    "Overworld",
+    "BiomeSourceAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

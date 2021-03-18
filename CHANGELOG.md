@@ -1,1 +1,5 @@
-Added NETHER, OVERWORLD, END
+## [1.0.0] - 2021-03-18
+### Added
+- NETHER
+- OVERWORLD
+- END
