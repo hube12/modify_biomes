@@ -1,8 +1,5 @@
 package net.fabricmc.example;
 
-import kaptainwutax.biomeutils.source.BiomeSource;
-import kaptainwutax.seedutils.mc.Dimension;
-import kaptainwutax.seedutils.mc.MCVersion;
 import net.fabricmc.api.ModInitializer;
 
 public class ExampleMod implements ModInitializer {
