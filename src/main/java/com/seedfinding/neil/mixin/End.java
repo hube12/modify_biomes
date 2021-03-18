@@ -1,4 +1,4 @@
-package net.fabricmc.example.mixin;
+package com.seedfinding.neil.mixin;
 
 import kaptainwutax.biomeutils.source.BiomeSource;
 import kaptainwutax.seedutils.mc.Dimension;

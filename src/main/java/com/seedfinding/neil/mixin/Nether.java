@@ -1,4 +1,4 @@
-package net.fabricmc.example.mixin;
+package com.seedfinding.neil.mixin;
 
 import com.mojang.datafixers.util.Pair;
 import kaptainwutax.biomeutils.source.BiomeSource;
@@ -21,25 +21,13 @@ import java.util.function.Supplier;
 
 @Mixin(MultiNoiseBiomeSource.class)
 public class Nether {
-    @Shadow
-    @Final
-    private Registry<Biome> biomeRegistry;
     public BiomeSource biomeSource;
-
-    public NetherParametersAccessor noise;
 
 
     @Inject(method = "<init>(JLjava/util/List;Lnet/minecraft/world/biome/source/MultiNoiseBiomeSource$NoiseParameters;Lnet/minecraft/world/biome/source/MultiNoiseBiomeSource$NoiseParameters;Lnet/minecraft/world/biome/source/MultiNoiseBiomeSource$NoiseParameters;Lnet/minecraft/world/biome/source/MultiNoiseBiomeSource$NoiseParameters;Ljava/util/Optional;)V", at = @At("RETURN"))
-    private void MultiNoiseBiomeSource(long seed, List<Pair<Biome.MixedNoisePoint, Supplier<Biome>>> biomePoints, NetherParametersAccessor temperatureNoiseParameters, NetherParametersAccessor humidityNoiseParameters, MultiNoiseBiomeSource.NoiseParameters altitudeNoiseParameters, MultiNoiseBiomeSource.NoiseParameters weirdnessNoiseParameters, Optional<Pair<Registry<Biome>, MultiNoiseBiomeSource.Preset>> instance, CallbackInfo ci) {
+    private void MultiNoiseBiomeSource(long seed, List<Pair<Biome.MixedNoisePoint, Supplier<Biome>>> biomePoints, MultiNoiseBiomeSource.NoiseParameters temperatureNoiseParameters, MultiNoiseBiomeSource.NoiseParameters humidityNoiseParameters, MultiNoiseBiomeSource.NoiseParameters altitudeNoiseParameters, MultiNoiseBiomeSource.NoiseParameters weirdnessNoiseParameters, Optional<Pair<Registry<Biome>, MultiNoiseBiomeSource.Preset>> instance, CallbackInfo ci) {
         biomeSource = BiomeSource.of(Dimension.NETHER, MCVersion.v1_16, seed);
     }
 
-    @Inject(method = "getBiomeForNoiseGen(III)Lnet/minecraft/world/biome/Biome;", at = @At("HEAD"), cancellable = true)
-    public void getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ, CallbackInfoReturnable<Biome> cir) {
-        cir.cancel(); // remove the old method
-        kaptainwutax.biomeutils.Biome biome = biomeSource.getBiomeForNoiseGen(biomeX, biomeY, biomeZ);
-        int id = biome.getId();
-        Biome biomeMC = this.biomeRegistry.get(id);
-        cir.setReturnValue(biomeMC);
-    }
+
 }
