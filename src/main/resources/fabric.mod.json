@@ -1,35 +1,35 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "modifybiomes",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Modify Biomes",
+  "description": "This is a mod to use the faster Biome Utils instead of Minecraft Biomes",
   "authors": [
-    "Me!"
+    "Neil"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://seedfinding.com/",
+    "sources": "https://github.com/hube12/modify_biomes"
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
-
+  "icon": "assets/modifybiomes/icon.png",
+  "accessWidener": "modifybiomes.accesswidener",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "com.seedfinding.neil.ModifyBiomes"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "modifybiomes.json"
   ],
 
   "depends": {
     "fabricloader": ">=0.7.4",
     "fabric": "*",
-    "minecraft": "1.16.x"
+    "minecraft": "1.16.5"
   },
   "suggests": {
     "another-mod": "*"

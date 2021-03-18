@@ -4,9 +4,12 @@
   "package": "net.fabricmc.example.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "NetherParametersAccessor"
   ],
   "client": [
-    "ExampleMixin"
+    "End",
+    "Nether",
+    "Overworld"
   ],
   "injectors": {
     "defaultRequire": 1
