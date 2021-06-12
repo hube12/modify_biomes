@@ -28,7 +28,7 @@ import static com.seedfinding.neil.ModifyBiomes.MC_VERSION;
 public class Nether extends BiomeSourceAccessor {
 	@Shadow
 	@Final
-	private List<Pair<BiomePoint, Supplier<Biome>>> biomePoints;
+	private List<Pair<Biome.MixedNoisePoint, Supplier<Biome>>> biomePoints;
 	public BiomeSource biomeSource;
 	private static final BiomePoint[] DEFAULT_BIOME_POINTS = {
 			new BiomePoint(kaptainwutax.biomeutils.biome.Biomes.NETHER_WASTES, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F),
@@ -42,13 +42,12 @@ public class Nether extends BiomeSourceAccessor {
 	@Inject(method = "<init>(JLjava/util/List;Lnet/minecraft/world/biome/source/MultiNoiseBiomeSource$NoiseParameters;Lnet/minecraft/world/biome/source/MultiNoiseBiomeSource$NoiseParameters;Lnet/minecraft/world/biome/source/MultiNoiseBiomeSource$NoiseParameters;Lnet/minecraft/world/biome/source/MultiNoiseBiomeSource$NoiseParameters;Ljava/util/Optional;)V", at = @At("RETURN"))
 	private void MultiNoiseBiomeSource(long seed, List<Pair<Biome.MixedNoisePoint, Supplier<Biome>>> biomePoints, MultiNoiseBiomeSource.NoiseParameters temperatureNoiseParameters, MultiNoiseBiomeSource.NoiseParameters humidityNoiseParameters, MultiNoiseBiomeSource.NoiseParameters altitudeNoiseParameters, MultiNoiseBiomeSource.NoiseParameters weirdnessNoiseParameters, Optional<Pair<Registry<Biome>, MultiNoiseBiomeSource.Preset>> instance, CallbackInfo ci) throws Exception {
 		biomeSource = BiomeSource.of(Dimension.NETHER, MC_VERSION, seed);
-		for (Pair<BiomePoint, Supplier<Biome>> pair : this.biomePoints) {
+		for (Pair<Biome.MixedNoisePoint, Supplier<Biome>> pair : this.biomePoints) {
 			float small = Float.MAX_VALUE;
 			BiomePoint current = null;
 			for (BiomePoint mixedNoisePoint : DEFAULT_BIOME_POINTS) {
-				float d = pair.getFirst().distanceTo(
-						new BiomePoint(
-								Biomes.THE_VOID,
+				float d = pair.getFirst().calculateDistanceTo(
+						new Biome.MixedNoisePoint(
 								mixedNoisePoint.temperature,
 								mixedNoisePoint.humidity,
 								mixedNoisePoint.altitude,
