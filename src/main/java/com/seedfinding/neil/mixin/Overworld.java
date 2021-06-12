@@ -1,8 +1,7 @@
 package com.seedfinding.neil.mixin;
 
 import kaptainwutax.biomeutils.source.BiomeSource;
-import kaptainwutax.seedutils.mc.Dimension;
-import kaptainwutax.seedutils.mc.MCVersion;
+import kaptainwutax.mcutils.state.Dimension;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.VanillaLayeredBiomeSource;
@@ -18,20 +17,20 @@ import static com.seedfinding.neil.ModifyBiomes.MC_VERSION;
 
 @Mixin(VanillaLayeredBiomeSource.class)
 public class Overworld {
-    @Shadow
-    @Final
-    private Registry<Biome> biomeRegistry;
-    public BiomeSource biomeSource;
+	@Shadow
+	@Final
+	private Registry<Biome> biomeRegistry;
+	public BiomeSource biomeSource;
 
-    @Inject(method = "<init>(JZZLnet/minecraft/util/registry/Registry;)V", at = @At("RETURN"))
-    public void VanillaLayeredBiomeSource(long seed, boolean legacyBiomeInitLayer, boolean largeBiomes, Registry<Biome> biomeRegistry, CallbackInfo ci) {
-        biomeSource = BiomeSource.of(Dimension.OVERWORLD,MC_VERSION, seed);
-    }
+	@Inject(method = "<init>(JZZLnet/minecraft/util/registry/Registry;)V", at = @At("RETURN"))
+	public void VanillaLayeredBiomeSource(long seed, boolean legacyBiomeInitLayer, boolean largeBiomes, Registry<Biome> biomeRegistry, CallbackInfo ci) {
+		biomeSource = BiomeSource.of(Dimension.OVERWORLD, MC_VERSION, seed);
+	}
 
-    @Inject(method = "getBiomeForNoiseGen(III)Lnet/minecraft/world/biome/Biome;", at = @At("HEAD"), cancellable = true)
-    public void getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ, CallbackInfoReturnable<Biome> cir) {
-        cir.cancel(); // remove the old method
-        kaptainwutax.biomeutils.Biome biome = biomeSource.getBiomeForNoiseGen(biomeX, biomeY, biomeZ);
-        cir.setReturnValue(this.biomeRegistry.get(biome.getId()));
-    }
+	@Inject(method = "getBiomeForNoiseGen(III)Lnet/minecraft/world/biome/Biome;", at = @At("HEAD"), cancellable = true)
+	public void getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ, CallbackInfoReturnable<Biome> cir) {
+		cir.cancel(); // remove the old method
+		kaptainwutax.biomeutils.biome.Biome biome = biomeSource.getBiomeForNoiseGen(biomeX, biomeY, biomeZ);
+		cir.setReturnValue(this.biomeRegistry.get(biome.getId()));
+	}
 }

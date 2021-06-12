@@ -2,7 +2,6 @@
   "schemaVersion": 1,
   "id": "modifybiomes",
   "version": "${version}",
-
   "name": "Modify Biomes",
   "description": "This is a mod to use the faster Biome Utils instead of Minecraft Biomes",
   "authors": [
@@ -12,7 +11,6 @@
     "homepage": "https://seedfinding.com/",
     "sources": "https://github.com/hube12/modify_biomes"
   },
-
   "license": "CC0-1.0",
   "icon": "assets/modifybiomes/icon.png",
   "accessWidener": "modifybiomes.accesswidener",
@@ -25,7 +23,6 @@
   "mixins": [
     "modifybiomes.mixins.json"
   ],
-
   "depends": {
     "fabricloader": ">=0.7.4",
     "minecraft": "1.16.5"

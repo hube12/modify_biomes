@@ -36,7 +36,7 @@ dependencies {
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
 
-	extraLibs('com.github.KaptainWutax:SEED:master-SNAPSHOT')
+	extraLibs('com.github.hube12:SEED:master-SNAPSHOT')
 	configurations.implementation.extendsFrom(configurations.extraLibs)
 }
 
